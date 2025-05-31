@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <div class="display_nona_menu">
+        <input type="checkbox" id="menu-toggle">
+        <label class="menu-btn" for="menu-toggle">☰ Меню</label>
+    
+        <div class="sidebar">
+            <a href="../syir_eti.html">Сиыр етi</a>
+            <a href="../jilqy_et.html">Жылқы етi</a>
+            <a href="../qoy.html">Қой етi</a>
+            <a href="../onimder.html">Жартылай дайын өнімдер</a>
+            <a href="../login.html">Регестрация жасау</a>
+            <a href="../corzina.html">Себет</a>
+        </div>
+        <label class="overlay" for="menu-toggle"></label>
+    </div>
+
+    <nav class="that_nav">
+
+        <div class="menus">
+            <p class="home home_1"><a href="../../index.html">БАСТЫ БЕТ</a></p>
+            <p class="home home_1">/</p>
+            <p class="home home_2">Тойымды тағамдар жинағы</p>
+        </div>
+
+        <div class="navs">
+            <div class="img_nav">
+                <img src="https://kublei.kz/fileadmin/user_upload/products/Gov9dina/Rebernaja_chast.jpg" alt="">
+<!--                <div class="fotos">-->
+<!--                    <img src="https://kublei.kz/fileadmin/user_upload/products/Gov9dina/Rebernaja_chast.jpg" alt="">-->
+<!--                    <img src="https://kublei.kz/fileadmin/user_upload/products/Gov9dina/Rebernaja_chast.jpg" alt="">-->
+<!--                    <img src="https://kublei.kz/fileadmin/user_upload/products/Gov9dina/Rebernaja_chast.jpg" alt="">-->
+<!--                </div>-->
+            </div>
+
+            <div class="texts_nav">
+                <h1>КАБЫРГА</h1>
+                <p class="price">2300тг</p>
+                <p class="text" style="line-height:1.5em;">
+                    Ол тұтас, құрғақ, жетілген бұлшықеттердің қиындысынан алынады. Жоғарыда көрсетілген салмақ ауқымдары
+                    әдетте осы ет бөлігінің салмағына негізделген. Біз әрқашан бір адамға шамамен 1/2 фунт (шамамен 225
+                    грамм) ақуыз тұтынуды ұсынамыз. Егер қолжетімді салмақ нұсқалары сіздің рецептіңізге жеткіліксіз
+                    болса, оң жақтағы таңдағышты пайдаланып, осы ет бөлігінің бірнеше бірлігін таңдаңыз.
+                </p>
+                <div class="cas">
+                    <div class="selectt">
+                        <select name="" id="">
+                            <option value="1">1</option>
+                            <option value="1">2</option>
+                            <option value="1">3</option>
+                            <option value="1">4</option>
+                            <option value="1">5</option>
+                            <option value="1">6</option>
+                        </select>
+                    </div>
+                    <div class="corzina">
+                        <i class='bx bx-cart'></i>
+                        <p class="text-cart">Добавить корзину</p>
+                    </div>
+                </div>
+                <p class="meat-box">Санат: <b>Ет қорабы</b></p>
+                <p class="meat-box">Тегтер: <b>Сүйек сорпасы, ет қорабы</b></p>
+            </div>
+        </div>
+    </nav>
+
+{% endblock %}

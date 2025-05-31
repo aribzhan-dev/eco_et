@@ -1,0 +1,136 @@
+.about-meat {
+    padding: 40px 20px;
+    font-family: sans-serif;
+  }
+
+  .about-wrapper {
+    display: flex;
+    gap: 30px;
+    max-width: 1000px;
+    margin: auto;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+
+  .about-img {
+    flex: 1 1 350px;
+    max-width: 100%;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  }
+
+  .about-text {
+    flex: 2 1 400px;
+  }
+
+  .about-text h2 {
+    font-size: 30px;
+    margin-bottom: 15px;
+    color: #0d364f;
+  }
+
+  .about-text p {
+    font-size: 18px;
+    color: #333;
+    line-height: 1.6;
+    margin-bottom: 10px;
+  }
+
+
+  .about_eco{
+    width: 100%;
+    margin: auto;
+    display: flex;
+    justify-content: center;
+}
+
+.eco{
+    width: 500px;
+    margin: 20px;
+    border-radius: 5px;
+    border: 1px solid #afafaf;
+    font-family: sans-serif;
+    background: white;
+}
+
+.img_map img{
+    width: 100%;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+
+.first{
+    padding-left: 20px;
+    position: relative;
+}
+
+.map_type p{
+    font-size: 20px;
+    margin-bottom: 5px;
+}
+
+.otziv{
+    color: #9d9d9e;
+    margin-bottom: 30px;
+}
+
+.rayon{
+    margin-top: 0;
+}
+
+
+
+
+.branch-container {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  max-width: 1000px;
+  margin: 60px auto;
+  padding: 0 15px;
+}
+
+.branch {
+  display: flex;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  overflow: hidden;
+  border-left: 8px solid #0d364f;
+}
+
+.branch-img {
+  width: 300px;
+  object-fit: cover;
+  flex-shrink: 0;
+  height: -webkit-fill-available;
+}
+
+.branch-text {
+  padding: 20px;
+  flex: 1;
+}
+
+.branch-text h2 {
+  margin: 0 0 10px;
+  color: #0d364f;
+  font-size: 20px;
+}
+
+.branch-text p {
+  margin: 4px 0;
+  color: #333;
+}
+
+.branch-text .region {
+  font-weight: bold;
+  color: #555;
+}
+
+.branch-text .reviews {
+  margin-top: 10px;
+  padding-left: 10px;
+  border-left: 3px solid #eee;
+  color: #666;
+  font-style: italic;
+}
