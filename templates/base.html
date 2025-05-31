@@ -18,10 +18,9 @@
                 </div>
                 <div class="header_menu_items">
                     <ul>
-                        <li><a href="templates/syir_eti.html">Сиыр етi</a></li>
-                        <li><a href="templates/jilqy_et.html">Жылқы етi</a></li>
-                        <li><a href="templates/qoy.html">Қой етi</a></li>
-                        <li><a href="templates/onimder.html">Жартылай дайын өнімдер</a></li>
+                        {% for cat in categories %}
+                        <li><a href="templates/syir_eti.html"> {{ cat.title }}</a></li>
+                        {% endfor %}
                     </ul>
                 </div>
             </div>

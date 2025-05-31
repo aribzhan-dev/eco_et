@@ -18,6 +18,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
+BASE_URL = "https://eco.eldor.kz/mobile"
+X_Api_Token = "c69ea09e-b5b5-41ee-a106-05a87e58da0e"
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
