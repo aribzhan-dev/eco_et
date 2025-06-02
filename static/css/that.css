@@ -139,3 +139,34 @@
         padding: 0 15px;
     }
 }
+
+.cart-controls {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.quantity-btn {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    font-size: 22px;
+    font-weight: bold;
+    width: 26px;
+    height: 30px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.quantity-btn:hover {
+    background-color: #0056b3;
+}
+
+.quantity-display {
+    font-size: 22px;
+    font-weight: bold;
+    min-width: 40px;
+    text-align: center;
+}

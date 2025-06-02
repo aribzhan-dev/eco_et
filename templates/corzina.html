@@ -1,325 +1,59 @@
 {% extends 'base.html' %}
-
 {% block content %}
+<main class="first_main">
+  <div class="main_first">
+    <p><a href="/">Басты бет</a></p> / <p>Себет</p>
+  </div>
 
-    <div class="display_nona_menu">
-        <input type="checkbox" id="menu-toggle">
-        <label class="menu-btn" for="menu-toggle">☰ Меню</label>
+  {% if cart %}
+  <div class="main__item">
+    <table class="cart-table">
+      <thead>
+        <tr>
+          <th>Өнім</th>
+          <th>Баға</th>
+          <th>Саны</th>
+          <th>Жалпы баға</th>
+          <th>Amal</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for item in cart %}
+        <tr>
+          <td class="product-info">
+            <img src="{{ item.photo }}" alt="" width="60">
+            <span>{{ item.title }}</span>
+          </td>
+          <td>{{ item.sale_cost }} тг</td>
+          <td>
+            <form method="POST" action="{% url 'update_cart' %}" class="quantity-form">
+              {% csrf_token %}
+              <input type="hidden" name="_id" value="{{ item.id }}">
+              <button type="submit" name="action" value="decrease" class="quantity-btn">−</button>
+              <input type="text" name="quantity" value="{{ item.quantity }}" min="1" oninput="this.value=this.value.replace(/[^0-9]/g,'')" class="quantity-input">
+              <button type="submit" name="action" value="increase" class="quantity-btn">+</button>
+            </form>
+          </td>
+          <td>{{ item.sum }} тг</td>
+          <td>
+            <form method="POST" action="{% url 'remove_from_cart' %}">
+              {% csrf_token %}
+              <input type="hidden" name="_id" value="{{ item.id }}">
+              <button type="submit" class="remove-btn">x</button>
+            </form>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
 
-        <div class="sidebar">
-            <a href="syir_eti.html">Сиыр етi</a>
-            <a href="jilqy_et.html">Жылқы етi</a>
-            <a href="qoy.html">Қой етi</a>
-            <a href="onimder.html">Жартылай дайын өнімдер</a>
-            <a href="login.html">Регестрация жасау</a>
-            <a href="corzina.html">Себет</a>
-        </div>
-        <label class="overlay" for="menu-toggle"></label>
+    <div class="cart_totals">
+      <h2>Jami narx</h2>
+      <p>Umumiy: {{ total_price }} тг</p>
     </div>
-
-
-    <main class="first_main">
-        <div class="main_first">
-            <p class="first_text"><a href="static/index.html">Басты бет</a></p>
-            <p> / </p>
-            <p class="first_text">Себет</p>
-        </div>
-
-        <div class="main__item">
-            <div class="products_main">
-                <h2>Өнім</h2>
-                <div class="cart_menu">
-                    <h2>Баға</h2>
-                    <h2>Саны</h2>
-                    <h2>Жалпы баға</h2>
-                </div>
-            </div>
-
-            <div class="products_main main_2">
-                <div class="del">
-                    <i class='bx bx-x'></i>
-                </div>
-                <div class="product_img">
-                    <div class="img_item">
-                        <img src="https://kublei.kz/fileadmin/user_upload/products/Gov9dina/Rebernaja_chast.jpg" alt="">
-                    </div>
-                    <p>КАБЫРГА</p>
-                </div>
-                <div class="cart_menu">
-                    <p class="price cart_price">2300тг</p>
-                    <div class="product_select">
-                        <div class="custom-spinner">
-                            <input type="number" id="spinner" value="1" step="1" />
-                            <div class="custom-spinner-controls">
-                                <button onclick="increment()">▲</button>
-                                <button onclick="decrement()">▼</button>
-                            </div>
-                        </div>
-                    </div>
-                    <p class="price">2300тг</p>
-                </div>
-            </div>
-            <div class="products_main main_2">
-                <div class="del">
-                    <i class='bx bx-x'></i>
-                </div>
-                <div class="product_img">
-                    <div class="img_item">
-                        <img src="https://kublei.kz/fileadmin/user_upload/products/Gov9dina/Rebernaja_chast.jpg" alt="">
-                    </div>
-                    <p>КАБЫРГА</p>
-                </div>
-                <div class="cart_menu">
-                    <p class="price cart_price">2300тг</p>
-                    <div class="product_select">
-                        <div class="custom-spinner">
-                            <input type="number" id="spinner" value="1" step="1" />
-                            <div class="custom-spinner-controls">
-                                <button onclick="increment()">▲</button>
-                                <button onclick="decrement()">▼</button>
-                            </div>
-                        </div>
-                    </div>
-                    <p class="price">2300тг</p>
-                </div>
-            </div>
-            <div class="products_main main_2">
-                <div class="del">
-                    <i class='bx bx-x'></i>
-                </div>
-                <div class="product_img">
-                    <div class="img_item">
-                        <img src="https://kublei.kz/fileadmin/user_upload/products/Gov9dina/Rebernaja_chast.jpg" alt="">
-                    </div>
-                    <p>КАБЫРГА</p>
-                </div>
-                <div class="cart_menu">
-                    <p class="price cart_price">2300тг</p>
-
-                    <div class="product_select">
-                        <div class="custom-spinner">
-                            <input type="number" id="spinner" value="1" step="1" />
-                            <div class="custom-spinner-controls">
-                                <button onclick="increment()">▲</button>
-                                <button onclick="decrement()">▼</button>
-                            </div>
-                        </div>
-
-                    </div>
-                    <p class="price">2300тг</p>
-                </div>
-            </div>
-        </div>
-
-        <div class="button_cupon">
-            <div class="input_for_cupon">
-                <input type="number" name="" id="" placeholder="Купон кодын енгізіңіз">
-                <div class="btn-1">Купонды қолдану</div>
-            </div>
-            <div class="input_for_cupon">
-                <a href="static/index.html"><i class='bx bx-left-arrow-alt'></i> Сауда жасауды жалғастыру</a>
-                <div class="btn-1">Себетті жаңарту</div>
-            </div>
-        </div>
-
-        <div class="cart_totals">
-            <div class="all_cart_totals">
-                <h2>Себеттің жалпы бағасы</h2>
-                <div class="table">
-                    <div class="table_subtotal">
-                        <p>Барлық баға</p>
-                        <p>2300тг</p>
-                    </div>
-                    <div class="table_subtotal">
-                        <p class="first_p">Жеткізілім</p>
-                        <p>1000тг</p>
-                    </div>
-                    <div class="table_subtotal">
-                        <p class="first_p">Барлығы</p>
-                        <p>2300тг</p>
-                    </div>
-                    <div class="absolute"></div>
-                </div>
-                <div class="checkout">
-                    <a href="opalata.html">
-                        <p>Есепке алуды жалғастырыңыз</p>
-                    </a>
-                </div>
-
-            </div>
-        </div>
-    </main>
-
-    <main class="secound_main">
-        <div class="productts">
-            <div class="product">
-                <div class="del">
-                    <i class='bx bx-x'></i>
-                </div>
-                <div class="img_and_name">
-                    <h2>Өнім</h2>
-                    <div class="img_item">
-                        <img src="https://kublei.kz/fileadmin/user_upload/products/Gov9dina/Rebernaja_chast.jpg" alt="">
-                        <p>Кабырга</p>
-                    </div>
-                </div>
-                <div class="img_and_name">
-                    <h2>Баға</h2>
-                    <p>2300тг</p>
-                </div>
-                <div class="img_and_name">
-                    <h2>Саны</h2>
-                    <div class="cart_menu">
-                        <div class="product_select">
-                            <div class="custom-spinner">
-                                <input type="number" id="spinner" value="1" step="1" />
-                                <div class="custom-spinner-controls">
-                                    <button onclick="increment()">▲</button>
-                                    <button onclick="decrement()">▼</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="subtotal_product">
-                    <h2>Жалпы баға</h2>
-                    <p>2300тг</p>
-                </div>
-
-            </div>
-
-            <div class="product">
-                <div class="del">
-                    <i class='bx bx-x'></i>
-                </div>
-                <div class="img_and_name">
-                    <h2>Өнім</h2>
-                    <div class="img_item">
-                        <img src="https://kublei.kz/fileadmin/user_upload/products/Gov9dina/Rebernaja_chast.jpg" alt="">
-                        <p>Кабырга</p>
-                    </div>
-                </div>
-                <div class="img_and_name">
-                    <h2>Баға</h2>
-                    <p>2300тг</p>
-                </div>
-                <div class="img_and_name">
-                    <h2>Саны</h2>
-                    <div class="cart_menu">
-                        <div class="product_select">
-                            <div class="custom-spinner">
-                                <input type="number" id="spinner" value="1" step="1" />
-                                <div class="custom-spinner-controls">
-                                    <button onclick="increment()">▲</button>
-                                    <button onclick="decrement()">▼</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="subtotal_product">
-                    <h2>Жалпы баға</h2>
-                    <p>2300тг</p>
-                </div>
-
-            </div>
-
-            <div class="product">
-                <div class="del">
-                    <i class='bx bx-x'></i>
-                </div>
-                <div class="img_and_name">
-                    <h2>Өнім</h2>
-                    <div class="img_item">
-                        <img src="https://kublei.kz/fileadmin/user_upload/products/Gov9dina/Rebernaja_chast.jpg" alt="">
-                        <p>Кабырга</p>
-                    </div>
-                </div>
-                <div class="img_and_name">
-                    <h2>Баға</h2>
-                    <p>2300тг</p>
-                </div>
-                <div class="img_and_name">
-                    <h2>Саны</h2>
-                    <div class="cart_menu">
-                        <div class="product_select">
-                            <div class="custom-spinner">
-                                <input type="number" id="spinner" value="1" step="1" />
-                                <div class="custom-spinner-controls">
-                                    <button onclick="increment()">▲</button>
-                                    <button onclick="decrement()">▼</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="subtotal_product">
-                    <h2>Жалпы баға</h2>
-                    <p>2300тг</p>
-                </div>
-
-            </div>
-
-            
-        </div>
-
-        <div class="button_cupon">
-            <div class="input_for_cupon">
-                <input type="number" name="" id="" placeholder="Купон кодын енгізіңіз">
-                <div class="btn-1">Купонды қолдану</div>
-            </div>
-            <div class="input_for_cupon">
-                <a href="static/index.html"><i class='bx bx-left-arrow-alt'></i> Сауда жасауды жалғастыру</a>
-                <div class="btn-1">Себетті жаңарту</div>
-            </div>
-        </div>
-
-        <div class="cart_totals">
-            <div class="all_cart_totals">
-                <h2>Себеттің жалпы бағасы</h2>
-                <div class="table">
-                    <div class="table_subtotal">
-                        <p>Барлық баға</p>
-                        <p>2300тг</p>
-                    </div>
-                    <div class="table_subtotal">
-                        <p class="first_p">Жеткізілім</p>
-                        <p>1000тг</p>
-                    </div>
-                    <div class="table_subtotal">
-                        <p class="first_p">Барлығы</p>
-                        <p>2300тг</p>
-                    </div>
-                    <div class="absolute"></div>
-                </div>
-                <div class="checkout">
-                    <a href="opalata.html">
-                        <p>Есепке алуды жалғастырыңыз</p>
-                    </a>
-                </div>
-
-            </div>
-        </div>
-    </main>
-
-
-
-
-    <script>
-        const input = document.getElementById('spinner');
-
-        function increment() {
-            const current = parseFloat(input.value || 0);
-            const fractional = current % 1;
-            const next = Math.floor(current + 1) + fractional;
-            input.value = next.toFixed(10).replace(/\.0+$/, '').replace(/(\.\d+?)0+$/, '$1');
-        }
-
-        function decrement() {
-            const current = parseFloat(input.value || 0);
-            const next = Math.max(0, current - 1);
-            input.value = next.toFixed(10).replace(/\.0+$/, '').replace(/(\.\d+?)0+$/, '$1');
-        }
-    </script>
-
+  </div>
+  {% else %}
+    <p style="text-align:center;">Savat bo‘sh</p>
+  {% endif %}
+</main>
 {% endblock %}

@@ -1,6 +1,11 @@
+from django.http import JsonResponse
+
 from eco_et.settings import BASE_URL, X_Api_Token
 from django.shortcuts import render, redirect
 from main.api_client import APIClient
+from django.views.decorators.csrf import csrf_exempt
+
+
 
 api_client = APIClient(base_url=BASE_URL, token=X_Api_Token)
 
@@ -8,18 +13,17 @@ api_client = APIClient(base_url=BASE_URL, token=X_Api_Token)
 def add_to_cart(request):
     if request.method == 'POST':
         product_id = request.POST.get('_id')
-        title = request.POST.get('title')
-        price = float(request.POST.get('sale_cost'))
+        title = request.POST.get('title', '')
+        price = float(request.POST.get('sale_cost') or 0)
         photo = request.POST.get('photo', '')
-        category_id = request.POST.get('category_id')
+        category_id = request.POST.get('category_id', '')
         quantity = int(request.POST.get('quantity', 1))
 
         cart = request.session.get('cart', [])
-
         existing = next((item for item in cart if item['_id'] == product_id), None)
 
         if existing:
-            existing['quantity'] += quantity
+            existing['quantity'] = quantity
         else:
             cart.append({
                 '_id': product_id,
@@ -31,40 +35,126 @@ def add_to_cart(request):
             })
 
         request.session['cart'] = cart
-        return redirect('index')
-    else:
-        return redirect('index')
+        return JsonResponse({'status': 'ok'})
 
 
 def index_handler(request):
     categories = api_client.get_categories()
+    search_query = request.GET.get('q', '').strip()
 
-    products = api_client.get_products('cat:3')
+    if search_query:
+        products = api_client.get_products(search_query)
+    else:
+        products = api_client.get_products('cat:0')
+
+    category_map = {str(cat['_id']): cat['title'] for cat in categories}
+
+    for pr in products:
+        pr['category_title'] = category_map.get(str(pr['category_id']), '')
+        pr['id'] = pr['_id']
+
+    products_count = len(products)
 
     return render(
         request, 'index.html',
         {
             'categories': categories,
             'products': products,
+            'products_count': products_count,
+            'search_query': search_query,
         },
     )
 
 
+
 def cart_handler(request):
     cart = request.session.get('cart', [])
-    return render(request, 'corzina.html', {})
+    total_price = sum(item['sale_cost'] * item['quantity'] for item in cart)
+    summ = 0
+
+    for item in cart:
+        item['sum'] = round(item['sale_cost'] * item['quantity'], 2)
+        summ += item['sum']
+
+    return render(request, 'corzina.html',
+                  {
+                      'cart': cart,
+                      'total_price': total_price,
+                      'summ': summ,
+                  }
+    )
 
 
-def details_handler(request):
-    return render(request, 'details.html', {})
 
 
-def that_meet_handler(request):
-    return render(request, 'that_meet.html', {})
+def that_meet_handler(request, category_id, blog_id):
+    products = api_client.get_products(f'cat:{category_id}')
+    product = next((p for p in products if str(p.get('_id')) == str(blog_id)), None)
+
+    if not product:
+        return custom_404(request)
+
+    product['id'] = product['_id']
+    categories = api_client.get_categories()
+    category_map = {str(cat['_id']): cat['title'] for cat in categories}
+    product['category_title'] = category_map.get(str(product['category_id']), '')
+
+    return render(request, 'that_meet.html', {'product': product})
+
+
+
 
 
 def custom_404(request):
     return render(request, '404.html', {}, status=404)
+
+
+
+
+
+
+
+@csrf_exempt
+def update_cart(request):
+    if request.method == 'POST':
+        product_id = request.POST.get('_id')
+        action = request.POST.get('action')
+        cart = request.session.get('cart', [])
+        updated_cart = []
+
+        for item in cart:
+            if item['_id'] == product_id:
+                if action == 'increase':
+                    item['quantity'] += 1
+                elif action == 'decrease':
+                    item['quantity'] -= 1
+                    if item['quantity'] <= 0:
+                        continue
+                else:
+                    try:
+                        new_quantity = int(request.POST.get('quantity', 1))
+                        item['quantity'] = max(1, new_quantity)
+                    except:
+                        pass
+            updated_cart.append(item)
+
+        request.session['cart'] = updated_cart
+    return redirect('cart_handler')
+
+@csrf_exempt
+def remove_from_cart(request):
+    if request.method == 'POST':
+        product_id = request.POST.get('_id')
+        cart = request.session.get('cart', [])
+        cart = [item for item in cart if item['_id'] != product_id]
+        request.session['cart'] = cart
+    return redirect('cart_handler')
+
+
+
+
+
+
 
 # {% for product in products %}
 #   <div style="border: 1px solid #ccc; margin: 10px; padding: 10px;">
