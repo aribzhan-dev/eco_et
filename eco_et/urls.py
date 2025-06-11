@@ -11,7 +11,7 @@ handler = custom_404
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', index_handler),
+    path('', index_handler, name='index_handler'),
     path('add_to_cart/', add_to_cart, name='add_to_cart'),
     path('cart/', views.cart_handler, name='cart_handler'),
     path('cart/update/', update_cart, name='update_cart'),

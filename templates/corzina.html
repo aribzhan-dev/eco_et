@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load static %}
 {% block content %}
 <main class="first_main">
   <div class="main_first">
@@ -6,7 +7,7 @@
   </div>
 
   {% if cart %}
-  <div class="main__item">
+  <div class="cart-wrapper">
     <table class="cart-table">
       <thead>
         <tr>
@@ -14,23 +15,29 @@
           <th>Баға</th>
           <th>Саны</th>
           <th>Жалпы баға</th>
-          <th>Amal</th>
+          <th></th>
         </tr>
       </thead>
       <tbody>
         {% for item in cart %}
         <tr>
           <td class="product-info">
-            <img src="{{ item.photo }}" alt="" width="60">
-            <span>{{ item.title }}</span>
+            <div class="info-cell">
+              {% if item.photo %}
+                <img src="{{ item.photo }}" alt="">
+              {% else %}
+                <img src="{% static 'img/placeholder.png' %}" alt="no image">
+              {% endif %}
+              <span>{{ item.title }}</span>
+            </div>
           </td>
           <td>{{ item.sale_cost }} тг</td>
           <td>
-            <form method="POST" action="{% url 'update_cart' %}" class="quantity-form">
+            <form method="POST" action="{% url 'update_cart' %}" class="quantity-form" style="display: flex; align-items: center; justify-content: center; gap: 5px;">
               {% csrf_token %}
               <input type="hidden" name="_id" value="{{ item.id }}">
               <button type="submit" name="action" value="decrease" class="quantity-btn">−</button>
-              <input type="text" name="quantity" value="{{ item.quantity }}" min="1" oninput="this.value=this.value.replace(/[^0-9]/g,'')" class="quantity-input">
+              <input type="text" name="quantity" value="{{ item.quantity }}" oninput="this.value=this.value.replace(/[^0-9]/g,'')" class="quantity-input" />
               <button type="submit" name="action" value="increase" class="quantity-btn">+</button>
             </form>
           </td>
@@ -46,14 +53,35 @@
         {% endfor %}
       </tbody>
     </table>
-
-    <div class="cart_totals">
-      <h2>Jami narx</h2>
-      <p>Umumiy: {{ total_price }} тг</p>
+    <div class="cart-summary">
+      <form method="GET" action="{% url 'cart_handler' %}">
+      </form>
+      <table class="summary-table">
+        <tr>
+          <td>Барлық баға</td>
+          <td>{{ total_price }}тг</td>
+        </tr>
+        <tr>
+          <td>Жеткізілім</td>
+          <td>
+            {% for ser in services %}
+              {{ ser.shipping_cost }}
+            {% endfor %}
+          </td>
+        </tr>
+        <tr>
+          <td><strong>Барлығы</strong></td>
+          <td><strong>{{ total_price|add:"1000" }}тг</strong></td>
+        </tr>
+      </table>
+      <form method="GET" action="{% url 'index_handler' %}">
+          <button class="checkout-btn">Есепке алуды жалғастырыңыз</button>
+      </form>
     </div>
+
   </div>
   {% else %}
-    <p style="text-align:center;">Savat bo‘sh</p>
+    <p style="text-align:center;">Себет бос</p>
   {% endif %}
 </main>
 {% endblock %}

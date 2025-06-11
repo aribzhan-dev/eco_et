@@ -4,7 +4,7 @@ from eco_et.settings import BASE_URL, X_Api_Token
 from django.shortcuts import render, redirect
 from main.api_client import APIClient
 from django.views.decorators.csrf import csrf_exempt
-
+from main.models import Services
 
 
 api_client = APIClient(base_url=BASE_URL, token=X_Api_Token)
@@ -40,34 +40,49 @@ def add_to_cart(request):
 
 def index_handler(request):
     categories = api_client.get_categories()
+    for cat in categories:
+        cat['id'] = int(cat['_id'])
+
     search_query = request.GET.get('q', '').strip()
+    category_id = request.GET.get('category_id', '').strip()
+    category_id = int(category_id) if category_id else None
 
     if search_query:
         products = api_client.get_products(search_query)
+    elif category_id:
+        products = api_client.get_products(f'cat:{category_id}')
     else:
-        products = api_client.get_products('cat:0')
+        products = api_client.get_products()
 
-    category_map = {str(cat['_id']): cat['title'] for cat in categories}
+    for pro in products:
+        pro['id'] = int(pro['_id'])
+        pro['category_id'] = int(pro['category_id']) if pro.get('category_id') is not None else 0
 
+    category_map = {cat['id']: cat['title'] for cat in categories}
     for pr in products:
-        pr['category_title'] = category_map.get(str(pr['category_id']), '')
-        pr['id'] = pr['_id']
+        pr['category_title'] = category_map.get(pr['category_id'], '')
 
     products_count = len(products)
 
     return render(
         request, 'index.html',
         {
-            'categories': categories,
+            'categories': [{'id': cat['id'], 'title': cat['title']} for cat in categories],
             'products': products,
             'products_count': products_count,
             'search_query': search_query,
+            'category_id': category_id,
         },
     )
 
 
 
+
+
+
+
 def cart_handler(request):
+    services = Services.objects.filter(status=0)
     cart = request.session.get('cart', [])
     total_price = sum(item['sale_cost'] * item['quantity'] for item in cart)
     summ = 0
@@ -75,12 +90,14 @@ def cart_handler(request):
     for item in cart:
         item['sum'] = round(item['sale_cost'] * item['quantity'], 2)
         summ += item['sum']
+        item['id'] = item['_id']
 
     return render(request, 'corzina.html',
                   {
                       'cart': cart,
                       'total_price': total_price,
                       'summ': summ,
+                      'services': services,
                   }
     )
 

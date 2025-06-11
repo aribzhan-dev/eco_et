@@ -7,12 +7,15 @@
     <div class="content_filter">
         <p>көрініп тұрған өнімдер саны - {{ products_count }}</p>
         <div>
-          <select>
-            <option data-filter="*">Все продукты</option>
-            {% for cat in categories %}
-            <option data-filter=".category{{ cat.id }}">{{ cat.title }}</option>
-            {% endfor %}
-        </select>
+            <form method="get" action=".">
+               <select name="category_id" onchange="this.form.submit()">
+    <option value="">Барлық өнімдер</option>
+    {% for cat in categories %}
+        <option value="{{ cat.id }}" {% if category_id == cat.id %}selected{% endif %}>{{ cat.title }}</option>
+    {% endfor %}
+</select>
+
+            </form>
         </div>
     </div>
     <div class="product_list">
@@ -66,7 +69,7 @@ document.querySelectorAll('.add-to-cart').forEach(btn => {
 function updateCartUI(id) {
     const container = document.querySelector(`.product_action[data-id="${id}"]`);
     container.innerHTML = `
-        <div class="cart-controls">
+            <div class="cart-controls">
             <button onclick="decrease('${id}')" class="quantity-btn">-</button>
             <span class="quantity-display" id="qty-${id}">${cart[id]}</span>
             <button onclick="increase('${id}')" class="quantity-btn">+</button>
