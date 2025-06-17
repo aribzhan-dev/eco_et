@@ -24,25 +24,28 @@
 <!--                </div>-->
             </div>
 
-            <div class="product_action">
-              <div class="counter-container">
-                <button type="button" class="qty-btn" onclick="decrement()">−</button>
-                <input type="text" id="spinner" value="1" readonly />
-                <button type="button" class="qty-btn" onclick="increment()">+</button>
-              </div>
+            <div class="texts_nav">
+                <h1>{{ product.title }}</h1>
+                <p class="price">{{ product.sale_cost }}тг</p>
+                <p class="text" style="line-height:1.5em;">{{ product.description }}</p>
+                <div class="product_action">
+                  <div class="counter-container">
+                    <button type="button" class="qty-btn" onclick="decrement()">−</button>
+                    <input type="text" id="spinner" value="1" readonly />
+                    <button type="button" class="qty-btn" onclick="increment()">+</button>
+                  </div>
 
-              <button id="addToCartBtn"
-                      class="btn-cart"
-                      data-id="{{ product.id }}"
-                      data-title="{{ product.title }}"
-                      data-price="{{ product.sale_cost }}"
-                      data-photo="{{ product.photo }}"
-                      data-category="{{ product.category_id }}">
-                <i class='bx bx-cart'></i>Себетке қосу
-              </button>
+                  <button id="addToCartBtn"
+                          class="btn-cart"
+                          data-id="{{ product.id }}"
+                          data-title="{{ product.title }}"
+                          data-price="{{ product.sale_cost }}"
+                          data-photo="{{ product.photo }}"
+                          data-category="{{ product.category_id }}">
+                    <i class='bx bx-cart'></i>Себетке қосу
+                  </button>
+                </div>
             </div>
-
-
         </div>
     </nav>
 
@@ -83,10 +86,8 @@
       }
     </script>
 
-
-
     <script>
-      const spinner = document.getElementById('spinner');
+    const spinner = document.getElementById('spinner');
       const btn = document.getElementById('addToCartBtn');
 
       btn.addEventListener('click', function (e) {
@@ -134,9 +135,5 @@
         }
       }
     </script>
-
-
-
-
 
 {% endblock %}
