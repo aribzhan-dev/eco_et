@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-
+{% load static %}
 {% block content %}
 
 
@@ -22,9 +22,15 @@
         {% for pr in products %}
         <div class="product_item category{{ pr.category_id }}" data-id="{{ pr.id }}">
             <div class="product_information">
-                <a href="/that_meet/{{ pr.category_id }}/{{pr.id}}">
-                    <img src="{{ pr.photo }}" alt="">
-                </a>
+                {% if pr.photo %}
+                    <a href="/that_meet/{{ pr.category_id }}/{{pr.id}}">
+                        <img src="{{ pr.photo }}" alt="">
+                    </a>
+                {% else %}
+                    <a href="/that_meet/{{ pr.category_id }}/{{pr.id}}">
+                        <img src="{% static 'image/no-photo.png' %}" alt="">
+                    </a>
+                {% endif %}
                 <p class="title">{{ pr.title }}</p>
                 <p class="price">{{ pr.sale_cost }} тг/кг</p>
                 <p class="category">{{ pr.category_title }}</p>

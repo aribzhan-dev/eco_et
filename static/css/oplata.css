@@ -1,43 +1,83 @@
+/* Asosiy qismlar uchun style'laringizni shu yerda qoldiring */
+.cart-modal {
+    display: none;
+    position: relative;
+    margin-top: 10px;
+    background: #f2f2f2;
+    padding: 10px;
+    border: 1px solid #ccc;
+}
+
+#cart-toggle:checked~.cart-modal {
+    display: block;
+}
+
+.oplatas p {
+    margin: 10px 0;
+}
+
+/* --- Sizning mavjud CSS'ingiz --- */
 html{
     font-size: 16px;
 }
-
-
 
 .payed{
     display: flex;
     justify-content: center;
     margin-top: 90px;
     margin-bottom: 90px;
+    flex-wrap: wrap; /* Mobil uchun qo'shildi */
+    padding: 0 15px; /* Mobil uchun qo'shildi */
 }
 
 .first_pay{
-    max-width: 800px; 
-    margin-top: 50px;   
+    max-width: 800px;
+    width: 100%; /* Mobil uchun qo'shildi */
+    margin-top: 50px;
     margin-right: 80px;
+    box-sizing: border-box; /* Padding hisobga olinishi uchun */
 }
 
-.first_pay input{
+@media only screen and (max-width: 992px) { /* Mobil va tablet o'rtasidagi ekranlar */
+    .first_pay {
+        margin-right: 0; /* O'ng marginni olib tashlash */
+        margin-bottom: 30px; /* Ikkinchi qismdan ajratish */
+    }
+}
+
+
+.first_pay input,
+.first_pay textarea { /* textarea uchun ham style qo'shildi */
     width: 100%;
     height: 60px;
     padding-left: 20px;
     background: #f3f3f3;
     margin-bottom: 30px;
     border: 1px solid transparent;
+    box-sizing: border-box; /* Padding va border widthga kiradi */
 }
 
-.first_pay input::placeholder{
+.first_pay textarea {
+    height: 150px !important; /* Asl balandlik */
+    resize: vertical; /* Faqat vertikal o'zgartirishga ruxsat berish */
+}
+
+.first_pay input::placeholder,
+.first_pay textarea::placeholder { /* textarea uchun ham placeholder style */
     color: #858585;
 }
 
-.first_pay input:focus { 
+.first_pay input:focus,
+.first_pay textarea:focus { /* textarea uchun ham focus style */
     border: 1px solid #0d364f;
     outline: none;
-  }
+}
 
 .secound_pay{
     width: 600px;
+    max-width: 100%; /* Mobil uchun qo'shildi */
     margin-top: 50px;
+    box-sizing: border-box; /* Padding hisobga olinishi uchun */
 }
 
 .secound_pay .h1{
@@ -63,7 +103,6 @@ html{
     color: #0d364f;
 }
 
-
 .in_product_1{
     display: flex;
     flex-direction: column;
@@ -73,7 +112,6 @@ html{
 
 .in_product h2{
     margin-bottom: 10px;
-
 }
 
 .in_product p{
@@ -95,83 +133,138 @@ html{
     margin-top: 0;
 }
 
-
 .last_producr{
     display: flex;
     align-items: center;
     justify-content: space-between;
+    padding-bottom: 10px; /* Mobil uchun qo'shildi */
+    border-bottom: 2px solid #ededf4; /* Mobil uchun qo'shildi */
+    margin-bottom: 20px; /* Mobil uchun qo'shildi */
 }
 
 .oplatas {
-    margin-top: -2px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 28px;
+    /* margin-left: 7px; mobil uchun olib tashlandi */
 }
 
-
-.oplatas input{
-    margin-right: 5px;
+.oplatas .cart-modal {
+    display: none;
+    margin-left: 0; /* Mobil uchun olib tashlandi */
+    margin-top: 5px;
+    padding: 10px;
+    background: #f0f0f0;
+    border: 1px solid #ccc;
+    width: 100%; /* Mobil uchun qo'shildi */
+    box-sizing: border-box; /* Padding hisobga olinishi uchun */
 }
 
-
-.last_text_product{
-    font-size: 14px;
-    color: #858585;
+/* Показываем модалку при выборе радиокнопки */
+#kaspi:checked ~ .cart-modal {
+    display: block;
 }
 
-.last_text_product a{
-    color: black;
-    border-bottom: 1px solid black;
+#halyk:checked ~ .cart-modal {
+    display: block;
+}
+
+#paypai:checked ~ .cart-modal {
+    display: block;
+}
+
+.cart-modal h1{
+    color: #0d364f;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #b7b7b7;
 }
 
 
 .secound_pay .btn-1{
     max-width: 100%;
     text-align: center;
-    border: 2px solid #0d364f;
-}
-.oplatas {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    margin-top: 28px;
-  }
-
-  .oplatas label {
-
-  }
-
-  .oplatas .cart-modal {
-    display: none;
-    margin-left: 7px;
-    margin-top: 5px;
-    padding: 10px;
-    background: #f0f0f0;
-    border: 1px solid #ccc;
-
 }
 
-  /* Показываем модалку при выборе радиокнопки */
-  #kaspi:checked ~ .cart-modal {
-    display: block;
 
-  }
-
-  #halyk:checked ~ .cart-modal {
-    display: block;
-  }
-
-  #paypai:checked ~ .cart-modal {
-    display: block;
-  }
-
-  .cart-modal h1{
-    color: #0d364f;
-    padding-bottom: 10px;
-    border-bottom: 1px solid #b7b7b7;
-  }
-
-  @media only screen and (max-width: 600px) {
+/* --- Mobil Adaptatsiya --- */
+@media only screen and (max-width: 600px) {
     .payed{
-        flex-wrap: wrap;
-        padding: 0 15px;
+        flex-direction: column; /* Ustun bo'ylab joylashish */
+        align-items: center; /* Markazga joylashish */
+        padding: 0 15px; /* Chetlardan bo'sh joy */
     }
-  }
+
+    .first_pay{
+        margin-right: 0; /* O'ngdagi marginni olib tashlash */
+        margin-bottom: 30px; /* Ikkinchi qismdan ajratish */
+        max-width: 100%; /* To'liq kenglik */
+    }
+
+    .secound_pay{
+        max-width: 100%; /* To'liq kenglik */
+        margin-top: 0; /* Yuqori marginni olib tashlash */
+    }
+
+    .secound_pay .h1{
+        font-size: 24px; /* Sarlavha shriftini kichraytirish */
+        text-align: center;
+    }
+
+    .h1_1{
+        font-size: 24px; /* Sarlavha shriftini kichraytirish */
+        text-align: center;
+    }
+
+    .secound_pay .product, .last_producr {
+        flex-direction: column;
+        align-items: flex-start;
+        margin-bottom: 15px;
+        padding-bottom: 10px;
+        border-bottom: 1px solid #f3f3f3;
+    }
+
+    .in_product, .in_product_1 {
+        width: 100%; /* To'liq kenglik */
+        text-align: left; /* Matnni chapga tekislash */
+    }
+
+    .in_product_1 h2 {
+        margin-top: 10px; /* Sarlavha orasidagi bo'sh joy */
+    }
+
+    .oplatas {
+        padding: 0; /* Paddingni olib tashlash */
+    }
+
+    .oplatas .cart-modal {
+        margin-left: 0;
+    }
+}
+
+@media only screen and (max-width: 375px) {
+    .h1_1, .secound_pay .h1 {
+        font-size: 22px;
+    }
+}
+.secound_pay .btn-1 button {
+    background-color: #1284ff;
+    color: white;
+    border: 2px solid #1284ff;
+    padding: 15px 30px;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 6px;
+    cursor: pointer;
+    width: 100%;
+    box-sizing: border-box;
+    transition: all 0.3s ease;
+}
+
+.secound_pay .btn-1 button:hover {
+    background-color: #1284ff;
+    color: white;
+
+}
+
+

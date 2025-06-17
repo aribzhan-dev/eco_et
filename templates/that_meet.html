@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-
+{% load static %}
 {% block content %}
 
     <nav class="that_nav">
@@ -12,7 +12,11 @@
 
         <div class="navs">
             <div class="img_nav">
-                <img src="{{ product.photo }}" alt="">
+                {% if product.photo %}
+                    <img src="{{ product.photo }}" alt="">
+                {% else %}
+                    <img src="{% static 'image/no-photo.png' %}" alt="">
+                {% endif %}
 <!--                <div class="fotos">-->
 <!--                    <img src="https://kublei.kz/fileadmin/user_upload/products/Gov9dina/Rebernaja_chast.jpg" alt="">-->
 <!--                    <img src="https://kublei.kz/fileadmin/user_upload/products/Gov9dina/Rebernaja_chast.jpg" alt="">-->
@@ -20,23 +24,25 @@
 <!--                </div>-->
             </div>
 
-            <div class="texts_nav">
-                <h1>{{ product.title }}</h1>
-                <p class="price">{{ product.sale_cost }}тг</p>
-                <p class="text" style="line-height:1.5em;">{{ product.description }}</p>
-                <div class="product_action">
-                    <div class="product_select">
-                        <div class="custom-spinner">
-                            <input type="number" id="spinner" value="1" step="1" min="0" oninput="validateNumberInput(this)" />
-                            <div class="custom-spinner-controls">
-                                <button onclick="increment()">▲</button>
-                                <button onclick="decrement()">▼</button>
-                            </div>
-                        </div>
-                    </div>
-                    <a class="btn-1" href="#"><i class='bx bx-cart'></i>Себетке қосу</a>
-                </div>
+            <div class="product_action">
+              <div class="counter-container">
+                <button type="button" class="qty-btn" onclick="decrement()">−</button>
+                <input type="text" id="spinner" value="1" readonly />
+                <button type="button" class="qty-btn" onclick="increment()">+</button>
+              </div>
+
+              <button id="addToCartBtn"
+                      class="btn-cart"
+                      data-id="{{ product.id }}"
+                      data-title="{{ product.title }}"
+                      data-price="{{ product.sale_cost }}"
+                      data-photo="{{ product.photo }}"
+                      data-category="{{ product.category_id }}">
+                <i class='bx bx-cart'></i>Себетке қосу
+              </button>
             </div>
+
+
         </div>
     </nav>
 
@@ -60,5 +66,77 @@
             el.value = el.value.replace(/[^0-9]/g, '');
         }
     </script>
+
+    <script>
+      const input = document.getElementById('spinner');
+
+      function increment() {
+        let val = parseInt(input.value) || 0;
+        input.value = val + 1;
+      }
+
+      function decrement() {
+        let val = parseInt(input.value) || 0;
+        if (val > 1) {
+          input.value = val - 1;
+        }
+      }
+    </script>
+
+
+
+    <script>
+      const spinner = document.getElementById('spinner');
+      const btn = document.getElementById('addToCartBtn');
+
+      btn.addEventListener('click', function (e) {
+        e.preventDefault();
+        const id = btn.dataset.id;
+        const title = btn.dataset.title;
+        const price = btn.dataset.price;
+        const photo = btn.dataset.photo;
+        const category = btn.dataset.category;
+        const quantity = parseInt(spinner.value) || 1;
+
+        fetch('/add_to_cart/', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+            'X-CSRFToken': '{{ csrf_token }}'
+          },
+          body: new URLSearchParams({
+            _id: id,
+            title: title,
+            sale_cost: price,
+            photo: photo,
+            category_id: category,
+            quantity: quantity
+          })
+        })
+        .then(res => res.json())
+        .then(data => {
+          if (data.status === 'ok') {
+            alert("Себетке сәтті қосылды ✅");
+            // optional: savat belgisi yangilanishi yoki animatsiya
+          }
+        });
+      });
+
+      function increment() {
+        let val = parseInt(spinner.value) || 1;
+        spinner.value = val + 1;
+      }
+
+      function decrement() {
+        let val = parseInt(spinner.value) || 1;
+        if (val > 1) {
+          spinner.value = val - 1;
+        }
+      }
+    </script>
+
+
+
+
 
 {% endblock %}

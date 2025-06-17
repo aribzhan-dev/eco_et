@@ -4,10 +4,55 @@ from eco_et.settings import BASE_URL, X_Api_Token
 from django.shortcuts import render, redirect
 from main.api_client import APIClient
 from django.views.decorators.csrf import csrf_exempt
-from main.models import Services
-
+from main.models import Services, Order
+import json
+import requests
 
 api_client = APIClient(base_url=BASE_URL, token=X_Api_Token)
+
+
+
+
+
+## BOT
+
+def send_telegram_message(text: str):
+    url = f"https://api.telegram.org/bot8108262978:AAEZSoXT_NdIIJdLPQUEQmCMQ6-Hde-E1rw/sendMessage"
+    payload = {
+        "chat_id": '-1002844944379',
+        "text": text,
+        "parse_mode": "HTML"
+    }
+
+    response = requests.post(url, json=payload)
+
+    if response.status_code == 200:
+        print("Xabar yuborildi!")
+    else:
+        print("Xatolik yuz berdi:", response.text)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 def add_to_cart(request):
@@ -167,10 +212,60 @@ def remove_from_cart(request):
         request.session['cart'] = cart
     return redirect('cart_handler')
 
+def payment_handler(request):
+    cart = request.session.get('cart', [])
+    services = Services.objects.filter(status=0)
+
+    if request.method == 'POST':
+        name = request.POST.get('name', '')
+        address = request.POST.get('address', '')
+        phone = request.POST.get('phone', '')
+        desc = request.POST.get('desc', '')
+
+        order = Order(name=name, address=address, phone_number=phone, desc=desc)
+        order.save()
+
+        total_price = 0
+        message = "<b>🛒 Жаңа тапсырыс:</b>\n"
+        message += f"<b>👤 Аты:</b> {name}\n"
+        message += f"<b>📞 Телефон:</b> {phone}\n"
+        message += f"<b>📍 Мекенжай:</b> {address}\n"
+        message += f"<b>📝 Түсіндіру:</b> {desc or 'Yo‘q'}\n\n"
+        message += "<b>📦 Өнімдер:</b>\n"
+
+        for item in cart:
+            title = item.get('title', '')
+            price = item.get('sale_cost', 0)
+            qty = item.get('quantity', 0)
+            sum_ = round(price * qty, 2)
+            total_price += sum_
+            message += f"• {title} - {price}тг x {qty} = {sum_}тг\n"
+
+        message += f"\n<b>💰 Барлық баға:</b> {total_price} тг"
+
+        send_telegram_message(message)
+
+        request.session['cart'] = []
+
+        return redirect('order_success')
+
+    total_price = sum(item.get('sale_cost', 0) * item.get('quantity', 0) for item in cart)
+    summ = 0
+    for item in cart:
+        item['sum'] = round(item.get('sale_cost', 0) * item.get('quantity', 0), 2)
+        summ += item['sum']
+        item['id'] = item.get('_id', '')
+
+    return render(request, 'oplata.html', {
+        'cart': cart,
+        'total_price': total_price,
+        'summ': summ,
+        'services': services,
+    })
 
 
-
-
+def order_success(request):
+    return render(request, 'order_success.html')
 
 
 # {% for product in products %}

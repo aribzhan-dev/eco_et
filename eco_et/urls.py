@@ -17,6 +17,8 @@ urlpatterns = [
     path('cart/update/', update_cart, name='update_cart'),
     path('cart/remove/', remove_from_cart, name='remove_from_cart'),
     path('that_meet/<int:category_id>/<int:blog_id>', that_meet_handler),
+    path('payment/', payment_handler, name='payment_handler'),
+    path('order-success/', order_success, name='order_success'),
 
     url(r'^media/(?P<path>.*)$', serve, {
         'document_root': settings.MEDIA_ROOT

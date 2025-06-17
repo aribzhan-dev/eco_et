@@ -1,31 +1,30 @@
-main{
+main {
     max-width: 80rem;
     margin: 100px auto;
-
 }
 
-.main_first{
+.main_first {
     display: flex;
     align-items: center;
     gap: 1.2rem;
     margin-bottom: 2rem;
 }
 
-.main_first p.first_text{
+.main_first p.first_text {
     color: #0d364f;
     cursor: pointer;
 }
 
-.main_first .first_text a{
+.main_first .first_text a {
     color: gray;
 }
 
-.main__item{
+.main__item {
     max-width: 79rem;
     margin: auto;
 }
 
-.products_main{
+.products_main {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -35,12 +34,12 @@ main{
     position: relative;
 }
 
-.del{
+.del {
     position: absolute;
     left: 20px;
 }
 
-.del i{
+.del i {
     color: #0d364f;
     background: #fdecde;
     padding: .2rem;
@@ -50,153 +49,148 @@ main{
     cursor: pointer;
 }
 
-.del i:hover{
+.del i:hover {
     background: #f1caaa;
 }
- 
-.products_main h2{
+
+.products_main h2 {
     margin: 0;
     color: #0d364f;
 }
 
-
-
-.product_img{
+.product_img {
     display: flex;
     align-items: center;
     gap: .5rem;
 }
 
-.img_item{
+.img_item {
     width: 80px;
 }
 
-.img_item img{
+.img_item img {
     width: 100%;
 }
 
-.cart_price{
-    margin-right:-1px;
+.cart_price {
+    margin-right: -1px;
 }
 
-.cart_menu{
+.cart_menu {
     display: flex;
     align-items: center;
     gap: 7rem;
 }
 
-.product_select{
+.product_select {
     margin-right: 85px;
 }
 
-.product_select select{
+.product_select select {
     width: 50px;
     padding: .6rem;
     height: 40px;
 }
 
-.product_select select:focus{
+.product_select select:focus {
     border-color: #0d364f;
     border-radius: 1px;
     overflow: auto;
 }
 
-.main_2{
-    padding-top:20px;
+.main_2 {
+    padding-top: 20px;
 }
 
-
-.button_cupon{
+.button_cupon {
     max-width: 79rem;
-    margin:2rem auto .5rem;
+    margin: 2rem auto .5rem;
     display: flex;
     justify-content: space-between;
 }
 
-.input_for_cupon{
+.input_for_cupon {
     display: flex;
     align-items: center;
     gap: .5rem;
 }
 
-.input_for_cupon input{
+.input_for_cupon input {
     border: none;
     height: 40px;
     padding-left: .5rem;
     background: #e6eaed;
 }
 
-.input_for_cupon input:focus{
+.input_for_cupon input:focus {
     border: none;
     outline: none;
 }
 
-.input_for_cupon .btn-1{
+.input_for_cupon .btn-1 {
     text-align: center;
     padding-top: 12px;
     width: 200px;
 }
 
-.input_for_cupon a i{
+.input_for_cupon a i {
     width: 20px;
     font-size: 20px;
 }
 
-.input_for_cupon a{
+.input_for_cupon a {
     color: darkgoldenrod;
     display: flex;
     align-items: center;
 }
 
-.cart_totals{
+.cart_totals {
     display: flex;
     flex-direction: column;
     align-items: flex-end;
     color: #0d364f;
 }
 
-
-.all_cart_totals .table{
+.all_cart_totals .table {
     border: 1px solid #ebedf2;
     width: 500px;
     position: relative;
 }
 
-.table .table_subtotal{
+.table .table_subtotal {
     display: flex;
     align-items: center;
     justify-content: space-around;
     border-bottom: 1px solid #ebedf2;
 }
 
-.checkout{
+.checkout {
     display: flex;
     flex-direction: column;
     align-items: flex-end;
     margin-top: 20px;
 }
 
-.checkout p{
+.checkout p {
     background: #124462;
     padding: .8rem 3rem;
     color: white;
     font-size: 14px;
-    font-weight: 300; 
+    font-weight: 300;
     cursor: pointer;
 }
 
-.checkout p:hover{
+.checkout p:hover {
     background: #205270;
 }
 
-.absolute{
+.absolute {
     position: absolute;
     height: 100%;
     border-right: 1px solid #ebedf2;
     left: 300px;
     top: 0;
 }
-
 
 .custom-spinner {
     display: inline-flex;
@@ -206,9 +200,9 @@ main{
     height: 40px;
     font-family: sans-serif;
     color: #0d364f;
-  }
+}
 
-  .custom-spinner input {
+.custom-spinner input {
     width: 100%;
     padding: 6px 8px;
     text-align: center;
@@ -216,23 +210,23 @@ main{
     outline: none;
     font-size: 14px;
     -moz-appearance: textfield;
-  }
+}
 
-  /* Убираем стрелки в Chrome, Safari, Edge */
-  .custom-spinner input::-webkit-outer-spin-button,
-  .custom-spinner input::-webkit-inner-spin-button {
+/* Убираем стрелки в Chrome, Safari, Edge */
+.custom-spinner input::-webkit-outer-spin-button,
+.custom-spinner input::-webkit-inner-spin-button {
     -webkit-appearance: none;
     margin: 0;
-  }
+}
 
-  .custom-spinner-controls {
+.custom-spinner-controls {
     display: flex;
     flex-direction: column;
     border-left: 1px solid #d4d4d8;
     justify-content: center;
-  }
+}
 
-  .custom-spinner-controls button {
+.custom-spinner-controls button {
     width: 20px;
     height: 16px;
     font-size: 9px;
@@ -241,116 +235,220 @@ main{
     background: white;
     cursor: pointer;
     color: #0d364f;
-  }
+}
 
-  .custom-spinner-controls button:hover {
+.custom-spinner-controls button:hover {
     background: #f1f5f9;
-  }
+}
 
-  .secound_main{
-    display: none;
-  }
+.secound_main {
+    display: none; /* Hidden by default, shown on mobile */
+}
 
+/* --- */
 
-@media only screen and ( max-width:600px){
-    .first_main{
+## Mobile Responsiveness Adjustments
 
-        display: none;
+```css
+@media only screen and (max-width: 600px) {
+    .first_main {
+        display: none; /* Hide desktop layout on mobile */
     }
 
-    .secound_main{
-        display: block;
+    .secound_main {
+        display: block; /* Show mobile layout on mobile */
         padding: 20px 15px;
     }
 
-    .product{
-        width: 100%;
-        margin: auto;
+    .main__item,
+    .button_cupon,
+    .all_cart_totals {
+        max-width: 100%; /* Ensure these elements take full width */
+        margin-left: auto;
+        margin-right: auto;
     }
 
-    .del{
-        position: relative;
-        margin: 0;
-        padding: 0;
+    .products_main {
+        flex-direction: column; /* Stack product details vertically */
+        align-items: flex-start; /* Align items to the start */
+        padding: 10px 0; /* Adjust padding */
+        margin-bottom: 1rem;
+        border-bottom: 1px solid #eeeeee; /* Lighter border */
+    }
+
+    .del {
+        position: relative; /* Make delete button part of the flow */
         left: 0;
-        border-bottom: 1px solid #eeeeee;
-        padding-bottom: 10px;
-        margin-top: 20px;
+        margin-bottom: 10px; /* Add space below */
+        width: 100%; /* Take full width */
+        border-bottom: none; /* Remove duplicate border */
+        padding-bottom: 0;
+        display: flex;
+        justify-content: flex-end; /* Align to the right */
     }
 
-    .img_and_name{
+    .del i {
+        font-size: 24px; /* Larger icon for touch */
+        padding: .4rem;
+    }
+
+    .product_img {
+        width: 100%; /* Make image and name section take full width */
+        justify-content: flex-start; /* Align image and name to the left */
+        margin-bottom: 10px; /* Space between image/name and other details */
+    }
+
+    .img_item {
+        width: 70px; /* Slightly larger image */
+        margin-right: 10px;
+    }
+
+    .img_item img {
+        width: 100%;
+        height: auto;
+    }
+
+    .products_main h2 {
+        font-size: 18px; /* Adjust product name font size */
+        margin-bottom: 5px;
+    }
+
+    .img_item p { /* This targets the product variant/description if it exists */
+        font-size: 14px;
+        color: #98989a;
+        margin-top: 0;
+    }
+
+    .cart_menu {
+        flex-direction: column; /* Stack quantity and price vertically */
+        gap: 1rem; /* Reduce gap */
+        width: 100%; /* Take full width */
+        align-items: flex-start; /* Align to the left */
+    }
+
+    .product_select {
+        margin-right: 0; /* Remove right margin */
+        width: 100%; /* Take full width */
+        display: flex;
+        align-items: center;
+        justify-content: space-between; /* Space out "Quantity" text and select box */
+    }
+
+    .product_select label { /* Add a label for clarity if not already there in HTML */
+        font-weight: bold;
+        color: #0d364f;
+    }
+
+    .product_select select {
+        width: 100px; /* Adjust width for select dropdown */
+        padding: .5rem;
+        height: 35px;
+    }
+
+    .custom-spinner { /* Apply styles to the custom spinner if used for quantity */
+        width: 100px; /* Adjust width for better touch target */
+        height: 35px;
+    }
+
+    .cart_price {
+        margin-right: 0; /* Remove right margin */
+        width: 100%; /* Take full width */
+        text-align: left; /* Align price to the left */
+        display: flex;
+        justify-content: space-between; /* Space out "Price" text and actual price */
+        align-items: center;
+    }
+
+    .cart_price span { /* Assuming price is in a span */
+        font-size: 18px;
+        font-weight: bold;
+    }
+
+    .subtotal_product {
         display: flex;
         align-items: center;
         justify-content: space-between;
-        width: 100%;
-        border-bottom: 1px solid #eeeeee;
+        width: 100%; /* Ensure it takes full width */
         padding: 10px 0;
     }
 
-    .img_and_name h2{
-        font-size: 18px;
-    }
-
-    .img_item{
-        display: flex;
-        align-items: center;
-    }
-
-    .img_item img{
-        width: 50px;
-    }
-
-    .img_item p{
-        font-size: 14px;
-        color: #98989a;
-    }
-
-    .product_select{
-        margin-right: 0;
-    }
-
-    .subtotal_product{
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-    }
-
-    .subtotal_product h2{
+    .subtotal_product h2 {
         font-size: 20px;
         color: #0d364f;
     }
 
-    .img_item{
-        width: auto;
+    .button_cupon {
+        flex-direction: column; /* Stack coupon input and update cart button vertically */
+        align-items: center; /* Center items */
+        margin: 1.5rem auto 1rem;
+        padding: 0 15px; /* Add horizontal padding */
     }
 
-    .button_cupon{
-        flex-wrap: wrap;
+    .input_for_cupon {
+        flex-direction: column; /* Stack input and button vertically */
+        gap: 10px; /* Add some space */
+        width: 100%; /* Take full width */
+        margin-bottom: 15px; /* Space below coupon input section */
     }
 
-    .input_for_cupon{
-        flex-wrap: wrap;
-        gap: 0;
-        margin-bottom: 10px;
-    }
-
-    .input_for_cupon a{
-        margin-bottom: 10px;
-    }
-
-    .input_for_cupon input{
+    .input_for_cupon input {
+        width: 100%; /* Full width for input */
         height: 45px;
+        box-sizing: border-box; /* Include padding in width */
     }
 
-    .all_cart_totals{
+    .input_for_cupon .btn-1 {
+        width: 100%; /* Full width for button */
+        padding-top: 15px; /* Adjust padding for button */
+        height: 45px;
+        box-sizing: border-box;
+    }
+
+    .input_for_cupon a {
+        margin-bottom: 10px; /* Space for the "continue shopping" link */
         width: 100%;
+        justify-content: center; /* Center the link */
     }
 
-    .all_cart_totals .table{
+    .cart_totals {
+        align-items: center; /* Center the cart totals section */
         width: 100%;
+        padding: 0 15px; /* Add horizontal padding */
+        box-sizing: border-box;
     }
 
-    .absolute{
-        display: none;
+    .all_cart_totals .table {
+        width: 100%; /* Full width for the totals table */
+        box-sizing: border-box;
+    }
+
+    .table .table_subtotal {
+        flex-direction: column; /* Stack subtotal items */
+        align-items: center; /* Center stacked items */
+        padding: 10px 0;
+    }
+
+    .table .table_subtotal > div { /* Target specific divs within table_subtotal */
+        width: 100%;
+        text-align: center;
+        margin-bottom: 5px; /* Space between stacked items */
+    }
+
+    .absolute {
+        display: none; /* Hide the vertical separator on mobile */
+    }
+
+    .checkout {
+        width: 100%;
+        align-items: center; /* Center the checkout button */
+        padding: 0 15px;
+        box-sizing: border-box;
+    }
+
+    .checkout p {
+        width: 100%; /* Full width for the checkout button */
+        text-align: center;
+        padding: 1rem 0; /* Adjust padding */
+        box-sizing: border-box;
     }
 }

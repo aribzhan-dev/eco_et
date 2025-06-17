@@ -8,54 +8,55 @@
 
   {% if cart %}
   <div class="cart-wrapper">
-    <table class="cart-table">
-      <thead>
-        <tr>
-          <th>Өнім</th>
-          <th>Баға</th>
-          <th>Саны</th>
-          <th>Жалпы баға</th>
-          <th></th>
-        </tr>
-      </thead>
-      <tbody>
-        {% for item in cart %}
-        <tr>
-          <td class="product-info">
-            <div class="info-cell">
-              {% if item.photo %}
-                <img src="{{ item.photo }}" alt="">
-              {% else %}
-                <img src="{% static 'img/placeholder.png' %}" alt="no image">
-              {% endif %}
-              <span>{{ item.title }}</span>
-            </div>
-          </td>
-          <td>{{ item.sale_cost }} тг</td>
-          <td>
-            <form method="POST" action="{% url 'update_cart' %}" class="quantity-form" style="display: flex; align-items: center; justify-content: center; gap: 5px;">
-              {% csrf_token %}
-              <input type="hidden" name="_id" value="{{ item.id }}">
-              <button type="submit" name="action" value="decrease" class="quantity-btn">−</button>
-              <input type="text" name="quantity" value="{{ item.quantity }}" oninput="this.value=this.value.replace(/[^0-9]/g,'')" class="quantity-input" />
-              <button type="submit" name="action" value="increase" class="quantity-btn">+</button>
-            </form>
-          </td>
-          <td>{{ item.sum }} тг</td>
-          <td>
-            <form method="POST" action="{% url 'remove_from_cart' %}">
-              {% csrf_token %}
-              <input type="hidden" name="_id" value="{{ item.id }}">
-              <button type="submit" class="remove-btn">x</button>
-            </form>
-          </td>
-        </tr>
-        {% endfor %}
-      </tbody>
-    </table>
+    <div class="cart-table-container">
+      <table class="cart-table">
+        <thead>
+          <tr>
+            <th>Өнім</th>
+            <th>Баға</th>
+            <th>Саны</th>
+            <th>Жалпы баға</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for item in cart %}
+          <tr>
+            <td class="product-info">
+              <div class="info-cell">
+                {% if item.photo %}
+                  <img src="{{ item.photo }}" alt="Product Image">
+                {% else %}
+                  <img src="{% static 'image/no-photo.png' %}" alt="">
+                {% endif %}
+                <span>{{ item.title }}</span>
+              </div>
+            </td>
+            <td>{{ item.sale_cost }} тг</td>
+            <td>
+              <form method="POST" action="{% url 'update_cart' %}" class="quantity-form">
+                {% csrf_token %}
+                <input type="hidden" name="_id" value="{{ item.id }}">
+                <button type="submit" name="action" value="decrease" class="quantity-btn">−</button>
+                <input type="text" name="quantity" value="{{ item.quantity }}" oninput="this.value=this.value.replace(/[^0-9]/g,'')" class="quantity-input" />
+                <button type="submit" name="action" value="increase" class="quantity-btn">+</button>
+              </form>
+            </td>
+            <td>{{ item.sum }} тг</td>
+            <td>
+              <form method="POST" action="{% url 'remove_from_cart' %}">
+                {% csrf_token %}
+                <input type="hidden" name="_id" value="{{ item.id }}">
+                <button type="submit" class="remove-btn">x</button>
+              </form>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+
     <div class="cart-summary">
-      <form method="GET" action="{% url 'cart_handler' %}">
-      </form>
       <table class="summary-table">
         <tr>
           <td>Барлық баға</td>
@@ -67,21 +68,22 @@
             {% for ser in services %}
               {{ ser.shipping_cost }}
             {% endfor %}
+            {% if not services %} 1000тг {% endif %}
           </td>
         </tr>
         <tr>
           <td><strong>Барлығы</strong></td>
-          <td><strong>{{ total_price|add:"1000" }}тг</strong></td>
+          <td><strong>{{ total_price|add:1000 }}тг</strong></td>
         </tr>
       </table>
-      <form method="GET" action="{% url 'index_handler' %}">
+      <form method="GET" action="{% url 'payment_handler' %}">
           <button class="checkout-btn">Есепке алуды жалғастырыңыз</button>
       </form>
     </div>
 
   </div>
   {% else %}
-    <p style="text-align:center;">Себет бос</p>
+    <p style="text-align:center; margin: 50px 0;">Себет бос</p>
   {% endif %}
 </main>
 {% endblock %}
